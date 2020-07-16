@@ -4,15 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./webpack.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    
-    <nav class="navbar navbar-light bg-light">
-        <img src="/image/samurai (2).png">
-        <a class="navbar-brand">Yariniku</a>
-        <p>A Japanese Style Yakiniku restaurant</p>
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-success">
+    <a class="navbar-brand" href="#">
+        <i class="fas fa-hamburger"></i>
+        BurgerDad
+    </a>
+</nav>
+<div class="container-fluid">
+    <div class="mt-5 row">
+        <div class="col-3">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+                    href="#list-home" role="tab" aria-controls="home">套餐</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                    href="#list-profile" role="tab" aria-controls="profile">漢堡</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
+                    href="#list-messages" role="tab" aria-controls="messages">配餐</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
+                    href="#list-settings" role="tab" aria-controls="settings">飲料</a>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row row-cols-1 row-cols-md-2" id="innercard">
+                <div class="col mb-4">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
+                                to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
 
-    </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 </body>
 </html>
