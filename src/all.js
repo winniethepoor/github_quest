@@ -1,5 +1,7 @@
 import 'bootstrap';
 import './scss/custom.scss';
+import axios from 'axios';
+
 
 function product() {
     const obj = {
@@ -42,7 +44,7 @@ function product() {
   </div>`
             });
             
-            jsInnerCard.html(str) ;
+            jsInnerCard.innerHTML= str;
         },
     };
     obj.getData();
