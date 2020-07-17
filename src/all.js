@@ -1,6 +1,7 @@
-import 'bootstrap';
-import './scss/custom.scss';
+
+
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function product() {
