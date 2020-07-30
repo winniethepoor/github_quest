@@ -67,20 +67,20 @@
             created() {
 
                 this.user.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-                axios.defaults.headers.common.Authorization = `bearer${this.user.token}`;
-                this.getProducts();
+                // axios.defaults.headers.common.Authorization = `bearer${this.user.token}`;
                 
-                // if (this.user.token === '') {
-                //     window.location = 'Login.html';
-                // }
+                if (this.user.token === '') {
+                    window.location = 'login.html';
+                }
+                this.getProducts();
             },
             methods: {
                 getProducts(num = 1) {
                     
-                    const api = `${this.apiPath}${this.user.uuid}/admin/ec/products${num}`;
+                    const api = `${this.apiPath}${this.user.uuid}/admin/ec/products?page=${num}`;
                     // this.user.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                        axios.defaults.headers.common.Authorization = `Bearer${this.user.token}`;
                     axios.get(api).then((response) => {
-                        // axios.defaults.headers.common.Authorization = `bearer${vm.user.token}`;
                         this.products = response.data.data;
                         this.pagination = response.data.meta.pagination;
                     })
