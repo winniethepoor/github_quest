@@ -82,7 +82,9 @@
                         axios.defaults.headers.common.Authorization = `Bearer${this.user.token}`;
                     axios.get(api).then((response) => {
                         this.products = response.data.data;
-                        this.pagination = response.data.meta.pagination;
+                        // this.pagination = response.data.meta.pagination;
+                    }).catch((response)=>{
+                        console.log('err')
                     })
                 },
 
