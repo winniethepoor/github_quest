@@ -1,5 +1,7 @@
-import modal_js from './modal.js'
+import delModal_js from './delModal.js';
+import modal_js from './modal.js';
 import pagination_js from './pagination.js';
+Vue.component('delmodal_compo_name',delModal_js);
 Vue.component('modal_compo_name', modal_js);
 Vue.component('pagination_compo_name', pagination_js);
 new Vue({
@@ -65,12 +67,13 @@ new Vue({
               this.$refs.modalData.getProduct(this.tempProducts.id);
           this.isNew = false;
           break;
-        // case 'delete':
-        //   this.tempProduct = Object.assign({}, item);
-        //   $('#delProductModal').modal('show');
-        //   break;
-        // default:
-        //   break;
+        case 'delete':
+              this.tempProducts = Object.assign({}, item);
+              this.$refs.delModalData.getProduct(this.tempProducts.id);
+              this.isNew = false;
+          break;
+        default:
+          break;
       }
     },
         }

@@ -45,7 +45,7 @@
                 <td v-else><span class="p-2 bg-danger rounded">關閉</span></td>
                 <td><div class="btn-group">
                     <button class="btn btn-outline-dark btn-sm" @click="openModal('edit',item)">編輯</button>
-                    <button class="btn btn-outline-danger btn-sm">消除</button>
+                    <button class="btn btn-outline-danger btn-sm" @click="openModal('delete', item)">消除</button>
                 </div></td>
             </tr>
 
@@ -55,15 +55,21 @@
     <!-- pagination是在vue資料庫中的分頁資料 -->
     <!-- update為內部emit出來的資料 套用進Vue的方程式裡 -->
     <!-- :page="pagination" @update="getProducts" -->
+    <delModal_compo_name ref="delModalData" :user="user"@update="getProducts"></delModal_compo_name>
     <pagination_compo_name :page="pagination" @update="getProducts"></pagination_compo_name>
     <modal_compo_name ref="modalData" :status="status" :isnew="isNew" :user="user" @update="getProducts"></modal_compo_name>
     </div>
+    <h3></h3>
+    <span></span>
+    <span></span>
+    <span></span>
 
 
 
     
 </body>
 
+<script type="module" src="./js/delmodal.js"></script>
 <script type="module" src="./js/pagination.js"></script>
 <script type="module" src="./js/modal.js"></script>
 <script type="module" src="./js/all.js"></script>
