@@ -1,40 +1,83 @@
-
-
-
+import modal_js from './modal.js'
+import pagination_js from './pagination.js';
+Vue.component('modal_compo_name', modal_js);
+Vue.component('pagination_compo_name', pagination_js);
 new Vue({
     el: '#app',
     data: {
         apiPath: 'https://course-ec-api.hexschool.io/api/',
         products: [],
         pagination: {},
-        tempProduct: {
-            imageUrl: [],
+        tempProducts:{
+            imageUrl:[],
+        },
+        
+        isNew: false,
+        status: {
+        fileUploading: false,
         },
         user: {
             token: '',
             uuid: 'f8b5a05a-fd65-4097-8584-aa161833bcc1',
         },
+        
+
     },
+    // props:['page'],
     created() {
+
         this.user.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-        Axios.defaults.headers.common.Authorization = `bearer${vm.user.token}`;
-        // if (this.user.token === '') {
-        //     window.location = 'Login.html';
-        // }
+
+
+        if (this.user.token === '') {
+            window.location = 'login.html';
+        }
+        this.getProducts();
     },
     methods: {
         getProducts(num=1) {
-            var vm = this;
-            const api = `${apiPath}${uuid}/admin/ec/products?page=${num}`;
-            
-            axios.get(api).then((response)=>{
-                vm.product = response.data.data;
-                vm.pagination = response.data.meta.pagination;
+
+            const api = `${this.apiPath}${this.user.uuid}/admin/ec/products?page=${num}`;
+
+            axios.defaults.headers.common.Authorization = `Bearer ${this.user.token}`;
+            axios.get(api).then((response) => {
+                this.products = response.data.data;
+                this.pagination = response.data.meta.pagination;
+            }).catch((err) => {
+                console.log(err)
             })
         },
-    
+            // 開啟 Modal 視窗
+            // item是item in products
+    openModal(isNew, item) {
+      switch (isNew) {
+        case 'new':
+              this.$refs.modalData.tempProduct = {
+            imageUrl: [],
+          };
+          this.isNew = true;
+          $('#productModal').modal('show');
+          break;
+        case 'edit':
+            //用tempProduct存入product的item
+          this.tempProducts = Object.assign({}, item);
+          // 使用 refs 觸發子元件方法
+              this.$refs.modalData.getProduct(this.tempProducts.id);
+          this.isNew = false;
+          break;
+        // case 'delete':
+        //   this.tempProduct = Object.assign({}, item);
+        //   $('#delProductModal').modal('show');
+        //   break;
+        // default:
+        //   break;
+      }
+    },
         }
+
+
     });
+
 
 // new Vue({
 //     el: '#app',
