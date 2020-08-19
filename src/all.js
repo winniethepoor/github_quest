@@ -30,7 +30,7 @@ function product() {
             vm.data.products.forEach((item) => {
                 str += `<div class="col mb-4">
     <div class="card">
-      <img src="${item.imageUrl}" class="card-img-top" alt="...">
+      <img src="${item.imageUrl[0]}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">${ item.title}</h5>
         <p class="card-text">${ item.content}</p>

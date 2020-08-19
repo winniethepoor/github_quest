@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <title>Document</title>
+    <title>後台管理頁面</title>
 </head>
 <body>
     
@@ -39,8 +39,8 @@
             <tr v-for="(item) in products" :key="item.id">
                 <td>{{item.category}}</td>
                 <td>{{item.title}}</td>
-                <td>{{item.origin_price}}</td>
-                <td>{{item.price}}</td>
+                <td>{{item.origin_price| money}}</td>
+                <td>{{item.price| money}}</td>
                 <td v-if="item.enabled==true"><span class="p-2 bg-success rounded">啟用</span></td>
                 <td v-else><span class="p-2 bg-danger rounded">關閉</span></td>
                 <td><div class="btn-group">
@@ -59,10 +59,7 @@
     <pagination_compo_name :page="pagination" @update="getProducts"></pagination_compo_name>
     <modal_compo_name ref="modalData" :status="status" :isnew="isNew" :user="user" @update="getProducts"></modal_compo_name>
     </div>
-    <h3></h3>
-    <span></span>
-    <span></span>
-    <span></span>
+   
 
 
 
