@@ -4,8 +4,8 @@ VeeValidate.localize('tw', zh);
 Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
 Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
 Vue.component('shopcart_modal', shopcart);
-Vue.use(VueLoading);
-Vue.component('loading', VueLoading);
+// Vue.use(VueLoading);
+// Vue.component('loading', VueLoading);
 VeeValidate.configure({
     classes: {
         valid: 'is-valid',
