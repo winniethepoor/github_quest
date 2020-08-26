@@ -155,7 +155,7 @@
                                         </button>
                                     </div>
                                     <input id="inlineFormInputGroupUsername" type="text"
-                                        class="form-control text-center" :value="item.quantity"
+                                        class="form-control text-center" v-model="item.quantity"
                                         @keyup.enter="quantityUpdata(item.product.id, $event.target.value)">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-primary" type="button"

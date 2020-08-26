@@ -1,5 +1,5 @@
 export default{
-  props: ['form','data_cartlist','user'],
+  props: ['form','data_cartlist','user','total'],
     template:
   `
 
@@ -35,16 +35,30 @@ export default{
   <tbody>
     <tr v-for="(item,index) in data_cartlist" :key="item.product.id">
       <th scope="row">{{item.product.title}}</th>
-      <td id="list_num">{{item.quantity}}</td>
+      <td class="text-center" style="width:150px">
+      <div class="input-group ">
+      <div class="input-group-prepend">
+      <button class="btn btn-outline-danger" @click="counter(item.product.id,item.quantity-1)">-</button>
+      </div>
+      <input  type="number" min="1" class="form-control  text-center" 
+      v-model="item.quantity" @keyup="counter(item.product.id,$event.target.value)">
+      <div class="input-group-append">
+      <button class="btn btn-outline-success" @click="counter(item.product.id,item.quantity+1)">+</button>
+      </div>
+      </div>
+      </td>
       <td>{{item.product.price}}</td>
       <td>{{item.product.category}}</td>
       <td><a href="#" class="text-danger"@click.prevent="delSingle(item.product.id)">刪除</a></td>
       <td></td>
       
-    </tr>
-
-  </tbody>
-</table>
+    </tr>   
+    </tbody>
+    </table>
+    <hr>
+    <div class="text-right h5">
+    總金額:{{total}}
+    </div>
     <validation-observer v-slot="{ invalid }" >
         <form>
         
@@ -115,8 +129,12 @@ data(){
     
     return{
       test:'alright',
+      
       tempProduct:{
-        imageUrl:[]
+        imageUrl:[],
+      },
+      created(){
+        // this.sum();
       },
       test1(){
         console.log('done!')
@@ -139,6 +157,27 @@ data(){
           this.$emit('delete')
         })
         
+      },
+      // sum(){
+      //   const api = `${this.user.apiPath}${this.user.uuid}/ec/shopping`;
+      //   axios.get(api).then((response)=>{
+      //     this.data_cartlist = response.data.data;
+      //     console.log(this.data_cartlist.price)
+      //     this.data_cartlist.forEach(item => {
+      //     this.total += item.product.price;
+      //   });
+      // })
+      // },
+      counter(id,num){
+        if(num<=0){return}
+        const api = `${this.user.apiPath}${this.user.uuid}/ec/shopping`;
+        const data= {
+          product: id,
+          quantity:num,
+        };
+        axios.patch(api,data).then(()=>{
+        this.$emit('plus1')
+        })
       }
 
     };

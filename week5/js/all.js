@@ -4,6 +4,8 @@ VeeValidate.localize('tw', zh);
 Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
 Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
 Vue.component('shopcart_modal', shopcart);
+Vue.use(VueLoading);
+Vue.component('loading', VueLoading);
 VeeValidate.configure({
     classes: {
         valid: 'is-valid',
@@ -18,13 +20,15 @@ Vue.filter('money',function(num){
 new Vue({
     el:"#app",
     data:{
-        poop:'uhhj',
+        total:0,
         user:{
         apiPath: 'https://course-ec-api.hexschool.io/api/',
         uuid: 'f8b5a05a-fd65-4097-8584-aa161833bcc1',
         },
         products: [],
-        
+        status: {
+            loadingItem: '',
+        },
         
         form:{
             name:'',
@@ -35,13 +39,18 @@ new Vue({
         },
         cartlist:{
             
-        }
+        },
+        isLoading:false,
     },
     mounted() {
        
     },
-    created(){
+    computed: {
         
+        
+    },
+    created(){
+        this.sum();
         this.getData();
         this.getCartData();
         // this.tempProduct = Object.assign({}, item)
@@ -53,6 +62,19 @@ new Vue({
         // }
     },
     methods:{
+        sum() {
+            this.total=0;
+            const api = `${this.user.apiPath}${this.user.uuid}/ec/shopping`;
+            axios.get(api).then((response) => {
+                this.cartlist = response.data.data;
+                this.cartlist.forEach(item => {
+                    console.log(item.product.price)
+                    console.log(this.total)
+                    // this.total=0;
+                    this.total += (item.product.price*item.quantity);
+                });
+            })
+        },
         disabled_btn(id){
             for(var i=0;i<this.cartlist.length;i++){
                 if(this.cartlist[i].product.id==id){
@@ -65,8 +87,9 @@ new Vue({
             const api = `${this.user.apiPath}${this.user.uuid}/ec/products`;
             axios.get(api).then((res) => {
                 this.products = res.data.data;
+                
                console.log(this.cartlist[0].quantity)
-                console.log(this.products);
+                
             }).catch((err) => {
                 console.log('錯誤', err);
             });
@@ -89,8 +112,10 @@ new Vue({
             axios.get(api).then((res)=>{
                 this.cartlist = res.data.data;
                 console.log(this.cartlist[0].quantity);
+                this.sum();
                 this.getData();
             }).catch((err)=>{
+                this.sum();
                 console.log('shit...',err);
             })
         },

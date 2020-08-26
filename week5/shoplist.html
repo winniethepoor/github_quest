@@ -4,7 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <style>
+        input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
+        /* Firefox */
+      }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -17,13 +27,15 @@
 <body>
     <!-- Image and text -->
     <div class="container-fluid" id="app">
+        <loading :active.sync="isLoading"></loading>
     <nav class="navbar navbar-light bg-success d-flex justify-content-between sticky-top">
         <!-- <validation-provider v-slot="" rules=""></validation-provider> -->
         <a class="navbar-brand" href="#">
             <i class="fas fa-hamburger"></i>
             BurgerDad
         </a>
-        <button class="btn btn-primary" type="button" @click="openshopcart">我的購物車<i class="fas fa-cart-arrow-down"></i></button>
+        
+        <button class="btn btn-primary" type="button" @click="openshopcart">我的購物車<i class="fas fa-cart-arrow-down"><span class="badge badge-pill badge-danger">{{cartlist.length}}</span></i></button>
     </nav>
     <div class="container">
         <div class="mt-5 row">
@@ -68,10 +80,11 @@
 
                     </div>
                     </div>
+                    <!-- :total="total" -->
         </div>
             </div>
             <shopcart_modal :form="form" 
-            :data_cartlist="cartlist" :user="user" @deleteall="getCartData"@delete="getCartData">
+            :data_cartlist="cartlist" :user="user" :total="total"@plus1="getCartData"@deleteall="getCartData"@delete="getCartData">
             </shopcart_modal>
             </div>
     
